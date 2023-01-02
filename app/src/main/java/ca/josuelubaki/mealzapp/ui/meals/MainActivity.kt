@@ -1,8 +1,9 @@
-package ca.josuelubaki.mealzapp
+package ca.josuelubaki.mealzapp.ui.meals
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -10,6 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ca.josuelubaki.mealzapp.ui.theme.MealzAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    MealsCategoriesScreen()
                 }
             }
         }
@@ -30,14 +32,15 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun MealsCategoriesScreen() {
+    val viewModel : MealCategoriesViewModel = viewModel()
+    Text(text = "Hello compose!")
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     MealzAppTheme {
-        Greeting("Android")
+        MealsCategoriesScreen()
     }
 }
