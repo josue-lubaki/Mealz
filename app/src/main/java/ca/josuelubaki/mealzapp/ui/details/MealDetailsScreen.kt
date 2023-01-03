@@ -1,11 +1,13 @@
 package ca.josuelubaki.mealzapp.ui.details
 
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.spring
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -31,11 +33,13 @@ fun MealDetailsScreen(meal : MealResponse?) {
 //    val imageSizeDp by transition.animateDp(targetValueByState = { it.size }, label = "")
 //    val color by transition.animateColor(targetValueByState = { it.color }, label = "")
 //    val borderWidth by transition.animateDp(targetValueByState = { it.borderWidth }, label = "")
+//    val isScrolled = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0.5 } }.value
 
-    val scrollState = rememberScrollState()
-    val offset = min(1f, 1 - (scrollState.value / 600f))
+    val scrollState = rememberLazyListState()
+    val firstElement = remember { derivedStateOf { scrollState.firstVisibleItemScrollOffset } }.value
+    val offset = min(1f, 1 - (firstElement / 600f + firstElement))
     val size by animateDpAsState(
-        targetValue = max(100.dp, 200.dp * offset),
+        targetValue = max(100.dp, 140.dp * offset),
         animationSpec = spring(stiffness = Spring.StiffnessVeryLow)
     )
 
@@ -79,12 +83,12 @@ fun MealDetailsScreen(meal : MealResponse?) {
                 }
             }
 
-
-            Column(
-                modifier = Modifier.verticalScroll(scrollState)
+           val dummyContentList = (0..100).map { "Item $it" }
+            LazyColumn(
+                state = scrollState,
             ) {
-                repeat(10){
-                    Text(text = "This is a text element", modifier = Modifier.padding(32.dp))
+                items(dummyContentList) { item ->
+                    Text(text = item, modifier =Modifier.padding(24.dp))
                 }
             }
 
