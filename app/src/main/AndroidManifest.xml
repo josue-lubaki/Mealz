@@ -15,7 +15,7 @@
         android:theme="@style/Theme.MealzApp"
         tools:targetApi="31">
         <activity
-            android:name=".ui.meals.MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MealzApp">
