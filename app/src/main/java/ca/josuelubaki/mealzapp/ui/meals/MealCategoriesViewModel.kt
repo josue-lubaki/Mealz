@@ -9,7 +9,7 @@ import ca.josuelubaki.model.response.MealResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MealCategoriesViewModel(private val repository: MealsRepository = MealsRepository())  : ViewModel(){
+class MealCategoriesViewModel(private val repository: MealsRepository = MealsRepository.getInstance())  : ViewModel(){
     val mealsState : MutableState<List<MealResponse>> = mutableStateOf(emptyList())
 
     init {

@@ -26,7 +26,7 @@ import coil.compose.rememberAsyncImagePainter
 
 
 @Composable
-fun MealsCategoriesScreen() {
+fun MealsCategoriesScreen(navigationCallback : (String) -> Unit) {
     val viewModel : MealCategoriesViewModel = viewModel()
     val meals = viewModel.mealsState.value
 
@@ -34,13 +34,13 @@ fun MealsCategoriesScreen() {
         contentPadding = PaddingValues(16.dp),
     ) {
         items(meals) { meal ->
-            MealCategory(meal)
+            MealCategory(meal, navigationCallback)
         }
     }
 }
 
 @Composable
-fun MealCategory(meal : MealResponse) {
+fun MealCategory(meal : MealResponse, navigationCallback : (String) -> Unit) {
     var isExpanded by remember { mutableStateOf(false) }
 
     Card(
@@ -49,6 +49,7 @@ fun MealCategory(meal : MealResponse) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 16.dp)
+            .clickable { navigationCallback(meal.id) }
     ) {
         Row(
             modifier = Modifier.animateContentSize()
@@ -101,6 +102,6 @@ fun MealCategory(meal : MealResponse) {
 @Composable
 fun DefaultPreview() {
     MealzAppTheme {
-        MealsCategoriesScreen()
+        MealsCategoriesScreen {}
     }
 }
